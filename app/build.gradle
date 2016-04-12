@@ -29,6 +29,13 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
 }
 
+sourceSets {
+	testLocal {
+		java.srcDir file('src/test/java')
+		resources.srcDir file('src/test/res')
+	}
+}
+	    
 task javadoc(type: Javadoc) {
     source = android.sourceSets.main.java.srcDirs
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
