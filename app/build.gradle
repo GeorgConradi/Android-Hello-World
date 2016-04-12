@@ -22,9 +22,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        jacoco{
-        	version = '0.7.6.201602180812'
-        }
+    }
+    jacoco{
+	version = '0.7.6.201602180812'
     }
 }
 
