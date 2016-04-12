@@ -15,9 +15,15 @@ android {
         versionName "1.0"
     }
     buildTypes {
+    	debug{
+    		testCoverageEnabled true
+    	}
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        jacoco{
+        	version = '0.7.2.201409121644'
         }
     }
 }
