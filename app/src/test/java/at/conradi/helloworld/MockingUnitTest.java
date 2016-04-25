@@ -40,7 +40,7 @@ public class MockingUnitTest {
     public void testMethodWithNestedCall() {
         // setup
         String returnValue;
-        String expectedValue = "4";
+        String expectedValue = "3"; // Although real method would normally return "2"
         String errorMessage = "Values should have been the same, but %s returned and this was expected: %s";
 
         // execute
@@ -85,10 +85,10 @@ public class MockingUnitTest {
      * The test is split into 3 parts: setup, execute, check
      */
     @Test
-    public void testFailsDueWrongValue() {
+    public void testCorrectReturnValue() {
         // setup
         int returnValue;
-        int expectedValue = 3;
+        int expectedValue = 2;
         String errorMessage = "Values should have been the same, but '%d' has been returned and this '%d' was expected!";
 
         // execute
