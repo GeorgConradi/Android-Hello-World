@@ -1,32 +1,58 @@
 package at.conradi.helloworld;
 
+import android.content.ClipData;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import at.conradi.helloworld.listener.DragListener;
+import at.conradi.helloworld.listener.ShakeDetector;
+import at.conradi.helloworld.listener.TouchListener;
+
 public class MainActivity extends AppCompatActivity {
+    private SensorManager mSensorManager;
+    private ShakeDetector mSensorListener;
+    private String txtTrap = "";
+    private String txtNoTrap = "";
+
     int amountOfTraps = 3;
+    int fieldsAccessed = 0;
+    int amountOfBoardRows = 3;
+    int amountOfBoardColumns = 3;
     List<Integer> traps = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        txtTrap = getResources().getString(R.string.game_field_with_trap);
+        txtNoTrap = getResources().getString(R.string.game_field_wout_trap);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         Button newGame = new Button(toolbar.getContext());
-        newGame.setText("Start new game");
+        newGame.setText(R.string.start_new_game);
         newGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Toast.makeText(MainActivity.this, "Test!", Toast.LENGTH_SHORT).show();
         toolbar.addView(newGame);
 
         setSupportActionBar(toolbar);
@@ -42,29 +69,36 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initGame() {
+        fieldsAccessed = 0;
         traps = new ArrayList<Integer>();
-        generateTraps(1, 10);
+        generateTraps(1, amountOfBoardRows * amountOfBoardColumns + 1);
+        String logMessage = getResources().getString(R.string.log_btn_at);
 
         TableLayout tblLayout = (TableLayout) findViewById(R.id.content);
-        for(int i = 0; i < 3; i++)
+        for(int i = 0; i < amountOfBoardRows; i++)
         {
             TableRow row = (TableRow)tblLayout.getChildAt(i);
-            for(int j=0; j < 3; j++){
+            for(int j=0; j < amountOfBoardColumns; j++){
                 Button button = (Button) row.getChildAt(j); // get child index on particular row
                 String buttonText = button.getText().toString();
                 button.setText("");
 
+                button.setOnDragListener(new DragListener(MainActivity.this));
+
                 button.setOnClickListener(new HandleTrapListener(i, j));
-                Log.i("Button index: " + (i + j), buttonText);
+                Log.i(logMessage + (i + j), buttonText);
             }
         }
+
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mSensorListener = new ShakeDetector();
     }
 
     private class HandleTrapListener implements View.OnClickListener {
         int rowId = 0;
         int columnId = 0;
 
-        HandleTrapListener(int rowId, int columnId){
+        HandleTrapListener(int rowId, int columnId) {
             this.rowId = rowId;
             this.columnId = columnId;
         }
@@ -72,32 +106,64 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             // zero-based IDs, so we need to increment by 1
-            int rowOffset = (1 * rowId) * 3;
+            int rowOffset = (1 * rowId) * amountOfBoardColumns;
             int expectedAt = rowOffset + (1 + columnId);
+            Button buttonToCheck = (Button)v;
+            String buttonText = buttonToCheck.getText().toString();
+            String logMessage = getResources().getString(R.string.log_trap_checked);
 
-            Log.i("Trap checked for", expectedAt + "");
-            if (traps.contains(expectedAt))
-                ((Button) v).setText("X");
-            else
-                ((Button) v).setText("O");
+            if (buttonText != txtTrap && buttonText != txtNoTrap) {
+                Log.i(logMessage, expectedAt + "");
+                if (traps.contains(expectedAt)) {
+                    Button button = (Button) v;
+                    button.setText(txtTrap);
+                    // enable cheating
+
+                    // Assign the touch listener to your view which you want to move
+                    button.setOnTouchListener(new TouchListener());
+                }
+                else
+                    ((Button) v).setText(txtNoTrap);
+                fieldsAccessed++;
+
+                if (fieldsAccessed == amountOfBoardRows * amountOfBoardColumns){
+                    Toast.makeText(MainActivity.this, R.string.no_moves
+                            , Toast.LENGTH_SHORT).show();
+
+                    // enable shaking only when game has been finished
+                    mSensorListener.setOnShakeListener(new ShakeDetector.OnShakeListener() {
+
+                        public void onShake() {
+                            Toast.makeText(MainActivity.this, R.string.shaked_for_new_game
+                                    , Toast.LENGTH_SHORT).show();
+                            initGame();
+                        }
+                    });
+                }
+            }
+            else{
+                Toast.makeText(MainActivity.this, R.string.already_moved
+                        , Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
     protected void generateTraps(int startAt, int limit){
         int amountOfButtons = 10;
         int trapNumber = newRandomNumberBetween(1, amountOfButtons);
+        String logMessage = getResources().getString(R.string.log_trap_id);
 
         for (int i = 0; i < amountOfTraps; i++) {
             while (traps.contains(trapNumber)) {
                 trapNumber = newRandomNumberBetween(1, amountOfButtons);
             }
-            Log.i("Trap for id", trapNumber + "");
+            Log.i(logMessage, trapNumber + "");
             traps.add(trapNumber);
         }
     }
 
     /**
-     *
+     * Returns new random number
      * @param startAt lower boundary for random number generation - inclusive
      * @param limit upper boundary for random number generation - exclusive
      * @return a new random number
@@ -128,5 +194,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(mSensorListener,
+                mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                SensorManager.SENSOR_DELAY_UI);
+    }
+
+    @Override
+    protected void onPause() {
+        mSensorManager.unregisterListener(mSensorListener);
+        super.onPause();
     }
 }

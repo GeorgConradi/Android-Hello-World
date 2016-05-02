@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="game_field_with_trap">X</string>
+    <string name="game_field_wout_trap">O</string>
+    <string name="log_trap_id">Trap for id</string>
+    <string name="log_trap_checked">Trap checked for</string>
+    <string name="log_btn_at">Button index:</string>
+</resources>
