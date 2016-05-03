@@ -15,20 +15,43 @@ android {
         versionName "1.0"
     }
     buildTypes {
-        debug{
-            //ignoreFailures true
+        debug {
+            debuggable true
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             testCoverageEnabled true
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            testCoverageEnabled false
         }
+    }
+    sourceSets {
+        unitTest {
+            java {
+                srcDir 'src/test/java' // New scope includes our unit test folder
+            }
+        }
+    }
+    lintOptions {
+        // I prefer avoiding a build fail if there is any warning, for they are only warnings
+        abortOnError false
     }
 }
 
 dependencies {
-    testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.+'
+
+    // Unit testing dependencies
+    unitTestCompile('junit:junit:4.12') { // Prevent duplication conflicts
+        exclude module: 'hamcrest-core'
+        exclude module: 'hamcrest-library'
+        exclude module: 'hamcrest-integration'
+    }
+    unitTestCompile 'org.hamcrest:hamcrest-core:1.1'
+    unitTestCompile 'org.hamcrest:hamcrest-library:1.1'
+    unitTestCompile 'org.hamcrest:hamcrest-integration:1.1'
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.1.1'
@@ -48,17 +71,20 @@ jacoco {
     toolVersion = '0.7.6.201602180812'
 }
 
+
+// Edit covered scope if needed
+// For my part I like having the coverage of both application and tests
 def coverageSourceDirs = [
-        '../app/src/main/java'
+        '../app/src'
 ]
 
-task jacocoTestReport(type:JacocoReport, dependsOn: "testDebug") {
+task jacocoTestReport(type: JacocoReport, dependsOn: "test") {
     group = "Reporting"
 
     description = "Generate Jacoco coverage reports"
 
     classDirectories = fileTree(
-            dir: '../app/build/intermediates/classes/debug',
+            dir: '../app/build/intermediates/classes',
             excludes: ['**/R.class',
                        '**/R$*.class',
                        '**/*$ViewInjector*.*',
@@ -68,10 +94,11 @@ task jacocoTestReport(type:JacocoReport, dependsOn: "testDebug") {
 
     additionalSourceDirs = files(coverageSourceDirs)
     sourceDirectories = files(coverageSourceDirs)
-    executionData = files('../app/build/jacoco/testDebug.exec')
+    executionData = files('../app/build/jacoco/testUnitTestDebug.exec')
 
     reports {
         xml.enabled = true
         html.enabled = true
     }
 }
+//end Jacoco config
