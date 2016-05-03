@@ -41,14 +41,13 @@ android {
 }
 
 dependencies {
-    testCompile 'org.mockito:mockito-core:1.+'
-
     // Unit testing dependencies
     unitTestCompile('junit:junit:4.12') { // Prevent duplication conflicts
         exclude module: 'hamcrest-core'
         exclude module: 'hamcrest-library'
         exclude module: 'hamcrest-integration'
     }
+    unitTestCompile 'org.mockito:mockito-core:1.+'
     unitTestCompile 'org.hamcrest:hamcrest-core:1.1'
     unitTestCompile 'org.hamcrest:hamcrest-library:1.1'
     unitTestCompile 'org.hamcrest:hamcrest-integration:1.1'
