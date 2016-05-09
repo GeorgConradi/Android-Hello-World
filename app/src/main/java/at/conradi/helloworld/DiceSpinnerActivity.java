@@ -49,7 +49,7 @@ public class DiceSpinnerActivity extends AppCompatActivity {
 
     private void createSimpleSpinningDice(ViewGroup layout, float mWidth, float mHeight) {
         Bitmap bmp1 = BitmapFactory.decodeResource(layout.getContext().getResources(),
-                R.drawable.dice3d);
+                R.drawable.ic);
 
         ImageView iView = new ImageView(layout.getContext());
         iView.setImageBitmap(bmp1);
