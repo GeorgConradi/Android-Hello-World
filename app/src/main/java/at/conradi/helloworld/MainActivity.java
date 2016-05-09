@@ -1,23 +1,17 @@
 package at.conradi.helloworld;
 
-import android.content.ClipData;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
@@ -31,6 +25,7 @@ import at.conradi.helloworld.listener.ShakeDetector;
 import at.conradi.helloworld.listener.TouchListener;
 
 public class MainActivity extends AppCompatActivity {
+    public final static String EXTRA_MESSAGE = "at.conradi.helloworld.MESSAGE";
     private SensorManager mSensorManager;
     private ShakeDetector mSensorListener;
     private String txtTrap = "";
@@ -51,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         Button newGame = new Button(toolbar.getContext());
         newGame.setText(R.string.start_new_game);
         newGame.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +88,16 @@ public class MainActivity extends AppCompatActivity {
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensorListener = new ShakeDetector();
+    }
+
+    public void startShowCube(MenuItem item) {
+        Intent intent = new Intent(this, DiceSpinnerActivity.class);
+        startActivity(intent);
+    }
+
+    public void startShowZoom(MenuItem item) {
+        Intent intent = new Intent(this, ZoomActivity.class);
+        startActivity(intent);
     }
 
     private class HandleTrapListener implements View.OnClickListener {

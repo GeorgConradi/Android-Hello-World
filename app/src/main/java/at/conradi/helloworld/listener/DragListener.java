@@ -70,7 +70,7 @@ public class DragListener  implements View.OnDragListener {
                         * Get parent group, if you want to switch elements between groups e.g.
                         * but be careful in respect to the type of element needed to cast
                         * */
-                    //LinearLayout container = (LinearLayout) droppedAtView;
+                    //LinearLayout container = (LinearLayout) droppedAtView.getParent();
                     //container.addView(draggedButton);
                 }
                 break;

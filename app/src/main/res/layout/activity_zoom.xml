@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<at.conradi.helloworld.layouts.ZoomableRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:id="@+id/zoomLinearLayoutWrapper"
+    tools:context="at.conradi.helloworld.ZoomActivity">
+
+    <!-- Layout containing the thumbnail ImageViews -->
+    <LinearLayout
+        android:id="@+id/zoomLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#42e573"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#42e173"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#42be73"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#429e73"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#421e73"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#424e73"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#42ee73"/>
+
+    </LinearLayout>
+
+
+    <!-- Layout containing the dashed boxes -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="152dp"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="177dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="#ee1e42"/>
+
+        <ImageView
+            android:layout_width="177dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="#eeae42"/>
+
+        <ImageView
+            android:layout_width="177dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="#eeee42"/>
+
+        <ImageView
+            android:layout_width="177dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="#eefe42"/>
+
+        <ImageView
+            android:layout_width="177dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="#efee42"/>
+
+        <ImageView
+            android:layout_width="177dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="#eaee42"/>
+
+        <ImageView
+            android:layout_width="177dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="#feee42"/>
+
+    </LinearLayout>
+
+</at.conradi.helloworld.layouts.ZoomableRelativeLayout>
