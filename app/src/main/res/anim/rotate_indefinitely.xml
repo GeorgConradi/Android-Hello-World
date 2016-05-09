@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Source code adapted from Stackoverflow discussion:
+   http://stackoverflow.com/questions/1634252/how-to-make-a-smooth-image-rotation-in-android
+-->
 <rotate xmlns:android="http://schemas.android.com/apk/res/android"
     android:duration="1600"
     android:fromDegrees="0"

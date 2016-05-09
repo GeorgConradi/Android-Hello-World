@@ -62,7 +62,11 @@ public class DiceSpinnerActivity extends AppCompatActivity {
         lp.height = (int)mHeight;
         iView.setLayoutParams(lp);
 
-        // Add animation using our resource xml (the animation definition)
+        /*
+        * Add animation using our resource xml (the animation definition)
+        * Source code adapted from Stackoverflow discussion:
+        *   http://stackoverflow.com/questions/1634252/how-to-make-a-smooth-image-rotation-in-android
+        */
         iView.startAnimation(
                 AnimationUtils.loadAnimation(layout.getContext(), R.anim.rotate_indefinitely));
         layout.addView(iView);
