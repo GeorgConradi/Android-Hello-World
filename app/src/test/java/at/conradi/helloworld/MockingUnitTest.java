@@ -1,6 +1,5 @@
 package at.conradi.helloworld;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -11,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 
 
 public class MockingUnitTest {
-    DummyClass classUnderTest = null;
+    private DummyClass classUnderTest = null;
 
     /**
      * Set-up method, determined by the "before" annotation, thus used before EACH TEST method execution
@@ -20,12 +19,6 @@ public class MockingUnitTest {
     public void setUp(){
         classUnderTest = Mockito.mock(DummyClass.class);
     }
-
-    /**
-     * tear-down method, determined by the "after" annotation, thus used after EACH TEST method execution
-     */
-    @After
-    public void tearDown(){}
 
     /**
      * Test utilizing mockito, showing how to omit nested method calls. So you can isolate the unit

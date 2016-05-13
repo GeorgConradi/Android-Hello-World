@@ -13,11 +13,11 @@ import android.widget.RelativeLayout;
  *  http://stackoverflow.com/questions/10013906/android-zoom-in-out-relativelayout-with-spread-pinch
  */
 public class ZoomableRelativeLayout extends RelativeLayout {
-    float mScaleFactor = 1;
-    float mPivotX;
-    float mPivotY;
-    private float MIN_SCALE = 1.0f;
-    private float MAX_SCALE = 20.0f;
+    private float mScaleFactor = 1;
+    private float mPivotX;
+    private float mPivotY;
+    private final float MIN_SCALE = 1.0f;
+    private final float MAX_SCALE = 20.0f;
 
     public ZoomableRelativeLayout(Context context) {
         super(context);
@@ -39,17 +39,13 @@ public class ZoomableRelativeLayout extends RelativeLayout {
         canvas.restore();
     }
 
-    public void scale(float scaleFactor, float pivotX, float pivotY) {
+    private void scale(float scaleFactor, float pivotX, float pivotY) {
         mScaleFactor = scaleFactor;
         mPivotX = pivotX;
         mPivotY = pivotY;
         this.invalidate();
     }
 
-    public void restore() {
-        mScaleFactor = 1;
-        this.invalidate();
-    }
     public void relativeScale(float scaleFactor, float pivotX, float pivotY)
     {
         mScaleFactor *= scaleFactor;

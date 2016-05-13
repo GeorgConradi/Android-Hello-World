@@ -13,8 +13,8 @@ import at.conradi.helloworld.layouts.ZoomableRelativeLayout;
  *  http://stackoverflow.com/questions/10013906/android-zoom-in-out-relativelayout-with-spread-pinch
  */
 public class OnPinchListener implements View.OnTouchListener {
-    ScaleGestureDetector scaleGestureDetector = null;
-    ZoomableRelativeLayout layout = null;
+    private ScaleGestureDetector scaleGestureDetector = null;
+    private ZoomableRelativeLayout layout = null;
 
     public OnPinchListener(ZoomableRelativeLayout mLayout){
         layout = mLayout;
@@ -41,7 +41,7 @@ public class OnPinchListener implements View.OnTouchListener {
         /**
          *
          * @param detector The scale gesture detector
-         * @return
+         * @return Returns true when scaling has been started
          */
         public boolean onScaleBegin(ScaleGestureDetector detector)
         {
@@ -55,7 +55,7 @@ public class OnPinchListener implements View.OnTouchListener {
         /**
          *
          * @param detector The scale gesture detector
-         * @return
+         * @return Returns true when scaling is performed
          */
         public boolean onScale(ScaleGestureDetector detector)
         {

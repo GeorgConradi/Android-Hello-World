@@ -21,38 +21,44 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="Sample image"
             android:background="#42e573"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="Sample image"
             android:background="#42e173"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="Sample image"
             android:background="#42be73"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="Sample image"
             android:background="#429e73"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="Sample image"
             android:background="#421e73"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="Sample image"
             android:background="#424e73"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="Sample image"
             android:background="#42ee73"/>
-
     </LinearLayout>
 
 
@@ -68,6 +74,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
+            android:contentDescription="Sample image"
             android:background="#ee1e42"/>
 
         <ImageView
@@ -75,6 +82,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
+            android:contentDescription="Sample image"
             android:background="#eeae42"/>
 
         <ImageView
@@ -82,6 +90,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
+            android:contentDescription="Sample image"
             android:background="#eeee42"/>
 
         <ImageView
@@ -89,6 +98,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
+            android:contentDescription="Sample image"
             android:background="#eefe42"/>
 
         <ImageView
@@ -96,6 +106,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
+            android:contentDescription="Sample image"
             android:background="#efee42"/>
 
         <ImageView
@@ -103,6 +114,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
+            android:contentDescription="Sample image"
             android:background="#eaee42"/>
 
         <ImageView
@@ -110,8 +122,8 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
+            android:contentDescription="Sample image"
             android:background="#feee42"/>
-
     </LinearLayout>
 
 </at.conradi.helloworld.layouts.ZoomableRelativeLayout>

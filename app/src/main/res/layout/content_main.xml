@@ -29,6 +29,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="0.33"
                 android:layout_height="match_parent"
+                style="@android:style/ButtonBar"
                 android:text="New Button"
                 android:id="@+id/button1" />
 
@@ -36,6 +37,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="0.33"
                 android:layout_height="match_parent"
+                style="@android:style/ButtonBar"
                 android:text="New Button"
                 android:id="@+id/button2" />
 
@@ -43,6 +45,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="0.33"
                 android:layout_height="match_parent"
+                style="@android:style/ButtonBar"
                 android:text="New Button"
                 android:id="@+id/button3" />
         </TableRow>
@@ -56,6 +59,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="0.33"
                 android:layout_height="match_parent"
+                style="@android:style/ButtonBar"
                 android:text="New Button"
                 android:id="@+id/button4" />
 
@@ -63,6 +67,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="0.33"
                 android:layout_height="match_parent"
+                style="@android:style/ButtonBar"
                 android:text="New Button"
                 android:id="@+id/button5" />
 
@@ -70,6 +75,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="0.33"
                 android:layout_height="match_parent"
+                style="@android:style/ButtonBar"
                 android:text="New Button"
                 android:id="@+id/button6" />
         </TableRow>
@@ -83,6 +89,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="0.33"
                 android:layout_height="match_parent"
+                style="@android:style/ButtonBar"
                 android:text="New Button"
                 android:id="@+id/button7" />
 
@@ -90,6 +97,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="0.33"
                 android:layout_height="match_parent"
+                style="@android:style/ButtonBar"
                 android:text="New Button"
                 android:id="@+id/button8" />
 
@@ -97,6 +105,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="0.33"
                 android:layout_height="match_parent"
+                style="@android:style/ButtonBar"
                 android:text="New Button"
                 android:id="@+id/button9" />
         </TableRow>

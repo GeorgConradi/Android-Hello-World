@@ -11,9 +11,10 @@ import at.conradi.helloworld.R;
 
 /**
  * Created by georgconradi on 02.05.16.
+ * Listener used to capture dragging events
  */
 public class DragListener  implements View.OnDragListener {
-    AppCompatActivity usedActivity = null;
+    private AppCompatActivity usedActivity = null;
 
     public DragListener(AppCompatActivity activity){
         usedActivity = activity;
@@ -21,7 +22,6 @@ public class DragListener  implements View.OnDragListener {
 
     @Override
     public boolean onDrag(View droppedAtView, DragEvent event) {
-        int action = event.getAction();
         Button draggedButton = (Button) event.getLocalState();
         switch (event.getAction()) {
             case DragEvent.ACTION_DRAG_STARTED:

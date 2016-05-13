@@ -25,17 +25,15 @@ import at.conradi.helloworld.listener.ShakeDetector;
 import at.conradi.helloworld.listener.TouchListener;
 
 public class MainActivity extends AppCompatActivity {
-    public final static String EXTRA_MESSAGE = "at.conradi.helloworld.MESSAGE";
     private SensorManager mSensorManager;
     private ShakeDetector mSensorListener;
     private String txtTrap = "";
     private String txtNoTrap = "";
 
-    int amountOfTraps = 3;
-    int fieldsAccessed = 0;
-    int amountOfBoardRows = 3;
-    int amountOfBoardColumns = 3;
-    List<Integer> traps = null;
+    private int fieldsAccessed = 0;
+    private final int amountOfBoardRows = 3;
+    private final int amountOfBoardColumns = 3;
+    private List<Integer> traps = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initGame() {
         fieldsAccessed = 0;
-        traps = new ArrayList<Integer>();
-        generateTraps(1, amountOfBoardRows * amountOfBoardColumns + 1);
+        traps = new ArrayList<>();
+        generateTraps(amountOfBoardRows * amountOfBoardColumns + 1);
         String logMessage = getResources().getString(R.string.log_btn_at);
 
         TableLayout tblLayout = (TableLayout) findViewById(R.id.content);
@@ -112,13 +110,13 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             // zero-based IDs, so we need to increment by 1
-            int rowOffset = (1 * rowId) * amountOfBoardColumns;
+            int rowOffset = rowId * amountOfBoardColumns;
             int expectedAt = rowOffset + (1 + columnId);
             Button buttonToCheck = (Button)v;
             String buttonText = buttonToCheck.getText().toString();
             String logMessage = getResources().getString(R.string.log_trap_checked);
 
-            if (buttonText != txtTrap && buttonText != txtNoTrap) {
+            if (!buttonText.equals(txtTrap) && !buttonText.equals(txtNoTrap)) {
                 Log.i(logMessage, expectedAt + "");
                 if (traps.contains(expectedAt)) {
                     Button button = (Button) v;
@@ -154,14 +152,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    protected void generateTraps(int startAt, int limit){
+    private void generateTraps(int limit){
         int amountOfButtons = 10;
-        int trapNumber = newRandomNumberBetween(1, amountOfButtons);
+        int trapNumber = newRandomNumberBetween(amountOfButtons);
         String logMessage = getResources().getString(R.string.log_trap_id);
 
+        int amountOfTraps = 3;
         for (int i = 0; i < amountOfTraps; i++) {
             while (traps.contains(trapNumber)) {
-                trapNumber = newRandomNumberBetween(1, amountOfButtons);
+                trapNumber = newRandomNumberBetween(amountOfButtons);
             }
             Log.i(logMessage, trapNumber + "");
             traps.add(trapNumber);
@@ -170,14 +169,13 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Returns new random number
-     * @param startAt lower boundary for random number generation - inclusive
      * @param limit upper boundary for random number generation - exclusive
      * @return a new random number
      */
-    protected int newRandomNumberBetween(int startAt, int limit){
+    private int newRandomNumberBetween(int limit){
 
         Random r = new Random();
-        return r.nextInt(limit - startAt) + startAt;
+        return r.nextInt(limit - 1) + 1;
     }
 
     @Override

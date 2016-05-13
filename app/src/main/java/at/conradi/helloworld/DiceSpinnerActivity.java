@@ -14,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 public class DiceSpinnerActivity extends AppCompatActivity {
-    Canvas cube = new Canvas();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +31,14 @@ public class DiceSpinnerActivity extends AppCompatActivity {
      * and thus can be used for further processing
      *
      */
-    protected class MyGlobalLayoutListener implements ViewTreeObserver.OnGlobalLayoutListener{
+    class MyGlobalLayoutListener implements ViewTreeObserver.OnGlobalLayoutListener{
         ViewGroup layout = null;
         MyGlobalLayoutListener(ViewGroup newLayout){
             layout = newLayout;
         }
         @Override
         public void onGlobalLayout() {
-            this.layout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+            this.layout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             float width = layout.getMeasuredWidth()/2;
             float height = layout.getMeasuredHeight()/2;
 
@@ -78,9 +77,6 @@ public class DiceSpinnerActivity extends AppCompatActivity {
         // automatically handles clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return (id == R.id.action_settings) || super.onOptionsItemSelected(item);
     }
 }
