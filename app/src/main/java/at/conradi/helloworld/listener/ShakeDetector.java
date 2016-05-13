@@ -81,49 +81,54 @@ public class ShakeDetector implements SensorEventListener {
         float totalMovement = Math.abs(newX + newY + newZ - lastX - lastY - lastZ);
 
         if (totalMovement > MIN_FORCE) {
-
-            // get time
-            long now = System.currentTimeMillis();
-
-            // store first movement time
-            if (mFirstDirectionChangeTime == 0) {
-                mFirstDirectionChangeTime = now;
-                mLastDirectionChangeTime = now;
-            }
-
-            // check if the last movement was not long ago
-            long lastChangeWasAgo = now - mLastDirectionChangeTime;
-            if (lastChangeWasAgo < MAX_PAUSE_BETHWEEN_DIRECTION_CHANGE) {
-
-                // store movement data
-                mLastDirectionChangeTime = now;
-                mDirectionChangeCount++;
-
-                // store last sensor data
-                lastX = newX;
-                lastY = newY;
-                lastZ = newZ;
-
-                // check how many movements are so far
-                if (mDirectionChangeCount >= MIN_DIRECTION_CHANGE) {
-
-                    // check total duration
-                    long totalDuration = now - mFirstDirectionChangeTime;
-                    if (totalDuration < MAX_TOTAL_DURATION_OF_SHAKE) {
-                        try {
-                            mShakeListener.onShake();
-                            resetShakeParameters();
-                        }
-                        catch (NullPointerException npex){
-                            Log.e("NullPointerException", npex.getMessage() != null ? npex.getMessage() : "No shake listener attached!" );
-                        }
-                    }
-                }
-
-            } else {
-                resetShakeParameters();
-            }
+            handleMovementDetection(newX, newY, newZ);
         }
+    }
+
+    private void handleMovementDetection(float newX, float newY, float newZ) {
+        // get time
+        long now = System.currentTimeMillis();
+
+        // store first movement time
+        if (mFirstDirectionChangeTime == 0) {
+            mFirstDirectionChangeTime = now;
+            mLastDirectionChangeTime = now;
+        }
+
+        // check if the last movement was not long ago
+        if (now - mLastDirectionChangeTime < MAX_PAUSE_BETHWEEN_DIRECTION_CHANGE) {
+
+            // store movement data
+            mLastDirectionChangeTime = now;
+            mDirectionChangeCount++;
+
+            // store last sensor data
+            lastX = newX;
+            lastY = newY;
+            lastZ = newZ;
+
+            if (isShakeGestureWithinTime(now)) {
+                try {
+                    mShakeListener.onShake();
+                    resetShakeParameters();
+                }
+                catch (NullPointerException nullPointerException){
+                    Log.e("NullPointerException", nullPointerException.getMessage() != null
+                            ? nullPointerException.getMessage()
+                            : "No shake listener attached!");
+                }
+            }
+
+        } else {
+            resetShakeParameters();
+        }
+    }
+
+    private boolean isShakeGestureWithinTime(long now) {
+        // check how many movements are so far
+        // and check total duration
+        return (mDirectionChangeCount >= MIN_DIRECTION_CHANGE)
+                && (now - mFirstDirectionChangeTime < MAX_TOTAL_DURATION_OF_SHAKE);
     }
 
     /**
