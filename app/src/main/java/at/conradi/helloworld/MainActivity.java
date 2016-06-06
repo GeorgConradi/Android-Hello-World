@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private String txtNoTrap = "";
 
     private int fieldsAccessed = 0;
-    private static final int amountOfBoardRows = 3;
-    private static final int amountOfBoardColumns = 3;
+    private static final int AMOUNT_OF_BOARD_ROWS = 3;
+    private static final int AMOUNT_OF_BOARD_COLUMNS = 3;
     private List<Integer> traps = null;
 
     @Override
@@ -65,14 +65,14 @@ public class MainActivity extends AppCompatActivity {
     private void initGame() {
         fieldsAccessed = 0;
         traps = new ArrayList<>();
-        generateTraps(amountOfBoardRows * amountOfBoardColumns + 1);
+        generateTraps(AMOUNT_OF_BOARD_ROWS * AMOUNT_OF_BOARD_COLUMNS + 1);
         String logMessage = getResources().getString(R.string.log_btn_at);
 
         TableLayout tblLayout = (TableLayout) findViewById(R.id.content);
-        for(int i = 0; i < amountOfBoardRows; i++)
+        for(int i = 0; i < AMOUNT_OF_BOARD_ROWS; i++)
         {
             TableRow row = (TableRow)tblLayout.getChildAt(i);
-            for(int j=0; j < amountOfBoardColumns; j++){
+            for(int j = 0; j < AMOUNT_OF_BOARD_COLUMNS; j++){
                 Button button = (Button) row.getChildAt(j); // get child index on particular row
                 String buttonText = button.getText().toString();
                 button.setText("");
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             // zero-based IDs, so we need to increment by 1
-            int rowOffset = rowId * amountOfBoardColumns;
+            int rowOffset = rowId * AMOUNT_OF_BOARD_COLUMNS;
             int expectedAt = rowOffset + (1 + columnId);
             Button buttonToCheck = (Button)v;
             String buttonText = buttonToCheck.getText().toString();
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                     ((Button) v).setText(txtNoTrap);
                 fieldsAccessed++;
 
-                if (fieldsAccessed == amountOfBoardRows * amountOfBoardColumns){
+                if (fieldsAccessed == AMOUNT_OF_BOARD_ROWS * AMOUNT_OF_BOARD_COLUMNS){
                     Toast.makeText(MainActivity.this, R.string.no_moves
                             , Toast.LENGTH_SHORT).show();
 
@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void generateTraps(int limit){
-        int amountOfButtons = 10;
+        int amountOfButtons = limit;
         int trapNumber = newRandomNumberBetween(amountOfButtons);
         String logMessage = getResources().getString(R.string.log_trap_id);
 
@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
      * @param limit upper boundary for random number generation - exclusive
      * @return a new random number
      */
-    private int newRandomNumberBetween(int limit){
+    private static int newRandomNumberBetween(int limit){
 
         Random r = new Random();
         return r.nextInt(limit - 1) + 1;
