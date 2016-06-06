@@ -35,44 +35,7 @@ public class DragListener  implements View.OnDragListener {
                 break;
             case DragEvent.ACTION_DROP:
                 // Dropped - do whatever needs to be done
-                draggedButton.setVisibility(View.VISIBLE);
-                    /* Get parent group, if you want to switch elements between groups e.g.*/
-                //ViewGroup owner = (ViewGroup) draggedButton.getParent();
-                //owner.removeView(draggedButton);
-
-                Button droppedAtButton = (Button) droppedAtView;
-                int droppedID = droppedAtButton.getId();
-                int draggedID = draggedButton.getId();
-
-                String txtTrap = usedActivity.getBaseContext().getResources().getString(R.string.game_field_with_trap);
-                String txtNoTrap = usedActivity.getBaseContext().getResources().getString(R.string.game_field_wout_trap);
-
-                if (droppedAtButton.getText() == txtTrap
-                        || droppedAtButton.getText() == "?" + txtTrap
-                        || droppedAtButton.getText() == txtNoTrap
-                        || droppedAtButton.getText() == "?" + txtNoTrap){
-                    Toast.makeText(usedActivity, "Move already made for drop destination!"
-                            , Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    draggedButton.setBackgroundColor(Color.GREEN);
-
-                    Toast.makeText(usedActivity, "Drop@:" + droppedID + ", Drag@:" + draggedID
-                            , Toast.LENGTH_SHORT).show();
-
-                    droppedAtButton.setBackgroundColor(Color.RED);
-                    droppedAtButton.setText("?" + txtTrap); // still need to implement that switching functionality
-                    draggedButton.setText("?" + txtNoTrap); // still need to implement that switching functionality
-                    // Remove listener, as cheating has been already performed and thus needs to be disabled
-                    draggedButton.setOnTouchListener(null);
-
-                        /*
-                        * Get parent group, if you want to switch elements between groups e.g.
-                        * but be careful in respect to the type of element needed to cast
-                        * */
-                    //LinearLayout container = (LinearLayout) droppedAtView.getParent();
-                    //container.addView(draggedButton);
-                }
+                handleDropAction((Button) droppedAtView, draggedButton);
                 break;
             case DragEvent.ACTION_DRAG_ENDED:
                 draggedButton.setVisibility(View.VISIBLE);
@@ -81,5 +44,36 @@ public class DragListener  implements View.OnDragListener {
                 break;
         }
         return true;
+    }
+
+    private void handleDropAction(Button droppedAtView, Button draggedButton) {
+        draggedButton.setVisibility(View.VISIBLE);
+
+        Button droppedAtButton = droppedAtView;
+        int droppedID = droppedAtButton.getId();
+        int draggedID = draggedButton.getId();
+
+        String txtTrap = usedActivity.getBaseContext().getResources().getString(R.string.game_field_with_trap);
+        String txtNoTrap = usedActivity.getBaseContext().getResources().getString(R.string.game_field_wout_trap);
+
+        if (droppedAtButton.getText() == txtTrap
+                || droppedAtButton.getText() == "?" + txtTrap
+                || droppedAtButton.getText() == txtNoTrap
+                || droppedAtButton.getText() == "?" + txtNoTrap){
+            Toast.makeText(usedActivity, "Move already made for drop destination!"
+                    , Toast.LENGTH_SHORT).show();
+        }
+        else {
+            draggedButton.setBackgroundColor(Color.GREEN);
+
+            Toast.makeText(usedActivity, "Drop@:" + droppedID + ", Drag@:" + draggedID
+                    , Toast.LENGTH_SHORT).show();
+
+            droppedAtButton.setBackgroundColor(Color.RED);
+            droppedAtButton.setText("?" + txtTrap); // still need to implement that switching functionality
+            draggedButton.setText("?" + txtNoTrap); // still need to implement that switching functionality
+            // Remove listener, as cheating has been already performed and thus needs to be disabled
+            draggedButton.setOnTouchListener(null);
+        }
     }
 }
