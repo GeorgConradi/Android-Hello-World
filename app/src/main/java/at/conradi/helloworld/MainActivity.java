@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Toast.makeText(MainActivity.this, "Test!", Toast.LENGTH_SHORT).show();
         toolbar.addView(newGame);
 
         setSupportActionBar(toolbar);
@@ -153,14 +152,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void generateTraps(int limit){
-        int amountOfButtons = limit;
-        int trapNumber = newRandomNumberBetween(amountOfButtons);
+        int trapNumber = newRandomNumberBetween(limit);
         String logMessage = getResources().getString(R.string.log_trap_id);
 
         int amountOfTraps = 3;
         for (int i = 0; i < amountOfTraps; i++) {
             while (traps.contains(trapNumber)) {
-                trapNumber = newRandomNumberBetween(amountOfButtons);
+                trapNumber = newRandomNumberBetween(limit);
             }
             Log.i(logMessage, Integer.toString(trapNumber));
             traps.add(trapNumber);
