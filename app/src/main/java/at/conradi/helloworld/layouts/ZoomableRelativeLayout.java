@@ -16,8 +16,8 @@ public class ZoomableRelativeLayout extends RelativeLayout {
     private float mScaleFactor = 1;
     private float mPivotX;
     private float mPivotY;
-    private final float MIN_SCALE = 1.0f;
-    private final float MAX_SCALE = 20.0f;
+    private static final float MIN_SCALE = 1.0f;
+    private static final float MAX_SCALE = 20.0f;
 
     public ZoomableRelativeLayout(Context context) {
         super(context);

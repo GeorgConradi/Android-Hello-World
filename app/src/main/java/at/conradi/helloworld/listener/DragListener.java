@@ -76,6 +76,7 @@ public class DragListener  implements View.OnDragListener {
                 break;
             case DragEvent.ACTION_DRAG_ENDED:
                 draggedButton.setVisibility(View.VISIBLE);
+                break;
             default:
                 break;
         }

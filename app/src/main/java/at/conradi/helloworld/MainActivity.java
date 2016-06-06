@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private String txtNoTrap = "";
 
     private int fieldsAccessed = 0;
-    private final int amountOfBoardRows = 3;
-    private final int amountOfBoardColumns = 3;
+    private static final int amountOfBoardRows = 3;
+    private static final int amountOfBoardColumns = 3;
     private List<Integer> traps = null;
 
     @Override
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
             String logMessage = getResources().getString(R.string.log_trap_checked);
 
             if (!buttonText.equals(txtTrap) && !buttonText.equals(txtNoTrap)) {
-                Log.i(logMessage, expectedAt + "");
+                Log.i(logMessage, Integer.toString(expectedAt));
                 if (traps.contains(expectedAt)) {
                     Button button = (Button) v;
                     button.setText(txtTrap);
@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
             while (traps.contains(trapNumber)) {
                 trapNumber = newRandomNumberBetween(amountOfButtons);
             }
-            Log.i(logMessage, trapNumber + "");
+            Log.i(logMessage, Integer.toString(trapNumber));
             traps.add(trapNumber);
         }
     }
